@@ -1,8 +1,13 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import storeData from './DatabaseStore';
 function Student() {
   const contextData = useContext(storeData);
+let currentCompo = useNavigate();
+  let handleDelete = (itemIndex)=>{
+    contextData.studentData.splice(itemIndex, 1);
+    currentCompo("/student")
+  }
 
   return (
     <section className='CommonSection studentSection'>
@@ -18,17 +23,19 @@ function Student() {
             <th>Course</th>
             <th>Batch</th>
             <th>Change</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {
-              contextData.studentData.map((details) => {
-                return <tr key={details.stuID}>
+              contextData.studentData.map((details, index) => {
+                return <tr key={index}>
                   <td>{details.stuName}</td>
                   <td>{details.stuAge}</td>
                   <td>{details.stuCourse}</td>
                   <td>{details.stuBatch}</td>
-                  <td><Link to={`/student-desc/${details.stuID}`}  className='editDetailsBtn'>Edit</Link></td>
+                  <td><Link to={`/student-desc/${index}`}  className='editDetailsBtn'>Edit</Link></td>
+                  <td><i className="fa-solid fa-trash DeleteButton" onClick={()=> handleDelete(index)}></i></td>
                 </tr>
               })
             }

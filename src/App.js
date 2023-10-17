@@ -10,23 +10,20 @@ import EditStudent from './Components/EditStudent';
 import storeData from './Components/DatabaseStore';
 import { useState } from 'react';
 function App() {
-  let count = 0;
+
   const [studentData, setStudentData] = useState([{
-    stuID: count++,
     stuName: "Mahi",
     stuAge: 21,
     stuCourse: 'Frontend',
     stuBatch: "March",
   },
   {
-    stuID: count++,
     stuName: "Anuj",
     stuAge: 23,
     stuCourse: 'AI/ML',
     stuBatch: "August",
   },
   {
-    stuID: count++,
     stuName: "Saptarsi",
     stuAge: 22,
     stuCourse: 'MERN',
@@ -44,11 +41,14 @@ function App() {
           <Student />
         </storeData.Provider>} />
 
-        <Route path='/student-desc' element={<AddNewStudent />} />
+        <Route path='/student-desc' element={<storeData.Provider value={{ studentData, setStudentData }}>
+          <AddNewStudent />
+        </storeData.Provider>} />
 
         <Route path='/student-desc/:ID' element={<storeData.Provider value={{ studentData, setStudentData }}>
           <EditStudent />
         </storeData.Provider>} />
+
 
         <Route path='*' element={<PageNotFound />} />
 

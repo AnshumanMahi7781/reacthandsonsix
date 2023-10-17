@@ -5,42 +5,45 @@ import { useContext } from 'react';
 
 function EditStudent() {
 
+  let NavigateToStudent = useNavigate();
+  let param = useParams();
   const contextData = useContext(storeData);
 
 
-  let NavigateToStudent = useNavigate();
-  let param = useParams();
 
-  let filterData = (data) => {
-    return  Number(data.stuID) === Number(param.ID)
+  let updatedObj = {
+    stuName: contextData.studentData[param.ID].stuName,
+    stuAge: contextData.studentData[param.ID].stuAge,
+    stuCourse: contextData.studentData[param.ID].stuCourse,
+    stuBatch: contextData.studentData[param.ID].stuBatch,
   }
-
-  let currentData = contextData.studentData.filter(filterData)
-
   let changeHandler = (e) => {
-
+    updatedObj[e.target.name] = e.target.value;
   }
+
   let updateHandler = (e) => {
     e.preventDefault()
+   contextData.studentData[param.ID] = updatedObj;
+   NavigateToStudent('/student');
   }
   return (
     <section className='CommonSection updateStudentSection'>
       <form className='studneDescForm'>
 
         <div className="FormRow FormRow-1">
-          <input type="text" name='stuName' placeholder='Enter Student Name' onChange={changeHandler} value={currentData[0].stuName} className='stuDescInput' />
+          <input type="text" name='stuName'  placeholder={contextData.studentData[param.ID].stuName} onChange={changeHandler} className='stuDescInput' />
         </div>
 
         <div className="FormRow FormRow-2">
-          <input type="number" name='stuAge' placeholder='Enter Student Age' onChange={changeHandler} value={currentData[0].stuAge} className='stuDescInput' />
+          <input type="number" name='stuAge'  placeholder={contextData.studentData[param.ID].stuAge} onChange={changeHandler} className='stuDescInput' />
         </div>
 
         <div className="FormRow FormRow-3">
-          <input type="text" name='stuCourse' placeholder="Enter Student's Course" onChange={changeHandler} value={currentData[0].stuCourse} className='stuDescInput' />
+          <input type="text" name='stuCourse'  placeholder={contextData.studentData[param.ID].stuCourse} onChange={changeHandler} className='stuDescInput' />
         </div>
 
         <div className="FormRow FormRow-4">
-          <input type="text" name='stuBatch' placeholder="Enter Student's Batch" onChange={changeHandler} value={currentData[0].stuBatch} className='stuDescInput' />
+          <input type="text" name='stuBatch'  placeholder={contextData.studentData[param.ID].stuBatch} onChange={changeHandler} className='stuDescInput' />
         </div>
 
         <div className="FormRow buttonsContainer">

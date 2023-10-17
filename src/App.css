@@ -10,16 +10,20 @@
   min-height: 100vh;
 
 }
-::-webkit-scrollbar{
+
+::-webkit-scrollbar {
   width: 5px;
 }
-::-webkit-scrollbar-track{
+
+::-webkit-scrollbar-track {
   background-color: #475569;
 }
-::-webkit-scrollbar-thumb{
- background-color: #fdba74;
- border-radius: 10px;
+
+::-webkit-scrollbar-thumb {
+  background-color: #fdba74;
+  border-radius: 10px;
 }
+
 header {
   border: none;
   width: 100%;
@@ -250,6 +254,11 @@ th {
   padding: 1em 0em;
 
 }
+.DeleteButton{
+  font-size: 20px;
+  color: tomato;
+  cursor: pointer;
+}
 
 .addNewStudentSection,
 .updateStudentSection {
@@ -331,7 +340,8 @@ th {
   font-weight: bold;
   background-color: aliceblue;
 }
-.cancleButton{
+
+.cancleButton {
   text-align: center;
   text-decoration: none;
   color: black;
@@ -430,5 +440,8 @@ th {
 
   .stuDescInput {
     padding: 1.2em 0.5em;
+  }
+  th{
+    font-size: 18px;
   }
 }
