@@ -1,14 +1,18 @@
 import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import storeData from './DatabaseStore';
 function Student() {
   const contextData = useContext(storeData);
-let currentCompo = useNavigate();
-  let handleDelete = (itemIndex)=>{
-    contextData.studentData.splice(itemIndex, 1);
-    currentCompo("/student")
+
+  let handleDelete = (itemIndex) => {
+    delete contextData.studentData[itemIndex];
+    contextData.studentData = [...contextData.studentData];
+    contextData.setStudentData(contextData.studentData);
   }
 
+  let filteredData = (details) => {
+    return details
+  }
   return (
     <section className='CommonSection studentSection'>
       <div className="studentSection--Heading">
@@ -28,17 +32,17 @@ let currentCompo = useNavigate();
         </thead>
         <tbody>
           {
-              contextData.studentData.map((details, index) => {
-                return <tr key={index}>
-                  <td>{details.stuName}</td>
-                  <td>{details.stuAge}</td>
-                  <td>{details.stuCourse}</td>
-                  <td>{details.stuBatch}</td>
-                  <td><Link to={`/student-desc/${index}`}  className='editDetailsBtn'>Edit</Link></td>
-                  <td><i className="fa-solid fa-trash DeleteButton" onClick={()=> handleDelete(index)}></i></td>
-                </tr>
-              })
-            }
+            contextData.studentData.filter(filteredData).map((details, index)=>{
+              return <tr key={index}>
+              <td>{details?.stuName}</td>
+              <td>{details?.stuAge}</td>
+              <td>{details?.stuCourse}</td>
+              <td>{details?.stuBatch}</td>
+              <td><Link to={`/student-desc/${index}`} className='editDetailsBtn'>Edit</Link></td>
+              <td><i className="fa-solid fa-trash DeleteButton" onClick={() => handleDelete(index)}></i></td>
+            </tr>
+            })
+          }
         </tbody>
       </table>
     </section>
